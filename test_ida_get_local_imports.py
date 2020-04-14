@@ -1,21 +1,19 @@
 #coding:utf-8
 
-
-# from idaapi import *
 import idaapi
 import idautils
 
 import json
 
 
-
+def set_import_function_color(addr):
+    if addr != idaapi.BADADDR:
+        SetColor(addr,CIC_ITEM,0x00CD00)
 
 def write_line_to_file(file_path, line_data):
     with open(file_path, 'w') as f:
         f.write(line_data)
         f.write('\n')
-
-
 
 
 def get_specify_import_modules_info(local_module_list):
@@ -55,8 +53,8 @@ def get_import_funcs(import_module_index):
         
         
         import_funcs_info.append(('0x%x' % (ea), name))
-        # import_funcs_info.append((str(hex(ea)), name))
         
+        set_import_function_color(ea)
         return True
    
 
@@ -108,6 +106,10 @@ def get_local_module_name_list(root_dir):
 def dump_dict_to_file(file_path, dict_data):
     with open(file_path, 'w') as f:
         json.dump(dict_data, f)
+
+
+
+
 
 
 def main():
